@@ -16,10 +16,13 @@ function update_docker_image() {
 
 function show_help() {
 
+	echo
 	echo "This program does not need arguments to work."
-	echo "Use --update option to update docker image."
+	echo
+	echo "Use --update to update docker image."
 	echo "Use --open (C-XX) to go to the coding style pdf."
-
+	echo "Use --real-time to get a window that while automaticly update itself (ctrl + c to escape)."
+	echo
 }
 
 
@@ -28,7 +31,7 @@ declare -A ERROR_TYPE=( [C-A3]="NO BLANK LINE AT EOF" [C-C1]="TOO MANY NESTING"
 			[C-F3]="LINE TOO LONG" [C-F4]="TOO MANY LINES"
 			[C-F5]="TOO MANY PARAMETERS" [C-F6]="NO PARAMETERS"
 			[C-F8]="COMMENT INSIDE FUNCTION" [C-F9]="NESTED FUNCTION"
-			[C-G1]="BAD EPITECH HEADER" [C-G2]="BAD NUMBER OF BLANK LINES BETWEEN FUNCTIONS"
+			[C-G1]="WRONG EPITECH HEADER" [C-G2]="BAD NUMBER OF BLANK LINES BETWEEN FUNCTIONS"
 			[C-G3]="BAD PREPROCESSOR DIRECTIVE IDENTATION" [C-G4]="USE OF GLOBAL VARIABLE"
 			[C-G5]="FORBIDDEN INCLUDE" [C-G6]="USE OF CARRIAGE RETURN CHAR"
 			[C-G7]="SPACE TO A BAD PLACE" [C-G8]="BLANK LINE TO A BAD SPACE"
@@ -100,14 +103,48 @@ function show_reports() {
 	rm -f "$EXPORT_FILE" "="	
 }
 
-if [ $# == 1 ] && [ $1 == "--update" ]; then
-	update_docker_image
-elif [ $# == 1 ] && [ $1 == "--open" ]; then
-	xdg-open "https://intra.epitech.eu/file/public/technical-documentations/C/epitech_c_coding_style.pdf"
-elif [ $# == 2 ] && [ $1 == "--open" ] && [ ${ERROR_LINK[$2]+_} ]; then
-	xdg-open "https://intra.epitech.eu/file/public/technical-documentations/C/epitech_c_coding_style.pdf#section*.${ERROR_LINK[$2]}"
-elif [ $# -ge 1 ]; then
-	show_help
-else
+
+function real_time() {
+
+	EXPORT_RT_FILE=$(readlink -f ".")/real-time-norminette-report
+
+	rm -f "$EXPORT_RT_FILE"
+
+	while :
+	do
+		show_reports > "$EXPORT_RT_FILE"
+		clear && cat "$EXPORT_RT_FILE"
+		rm -f "$EXPORT_RT_FILE"
+	done
+}
+
+
+
+##########################
+#######    MAIN    #######
+##########################
+
+
+if [ $# == 0 ]; then
 	show_reports
+elif [ $# == 1 ];
+then
+	if [ $1 == "--update" ]; then
+		update_docker_image
+	elif [ $1 == "--open" ]; then
+		xdg-open "https://intra.epitech.eu/file/public/technical-documentations/C/epitech_c_coding_style.pdf"
+	elif [ $1 == "--real-time" ]; then
+		real_time
+	else
+		show_help
+	fi
+elif [ $# == 2 ];
+then
+	if [ $1 == "--open" ] && [ ${ERROR_LINK[$2]+_} ]; then
+		xdg-open "https://intra.epitech.eu/file/public/technical-documentations/C/epitech_c_coding_style.pdf#section*.${ERROR_LINK[$2]}"
+	else
+		show_help
+	fi
+else
+	show_help
 fi
