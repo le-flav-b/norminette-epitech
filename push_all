@@ -1,0 +1,22 @@
+#!/bin/bash
+
+
+git add .
+if [ $# -eq 1 ]; then
+    MESSAGE=$1
+else
+    while :
+    do
+        read message
+        if [ -n "$message" ];
+        then
+            MESSAGE=$message
+            break
+        else
+            echo "Please input a message to commit"
+        fi
+    done
+fi
+git commit -m "$MESSAGE"
+git push
+

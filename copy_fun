@@ -1,0 +1,13 @@
+#!/bin/bash
+
+
+FILE_TO_COPY=$(readlink -f ".")/file-to-copy
+
+for fun in $@
+do
+	cat ~/Documents/scripts/.fonctions/$fun >> $FILE_TO_COPY
+done
+
+cat $FILE_TO_COPY | xclip -selection -c
+
+rm -f "$FILE_TO_COPY"

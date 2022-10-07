@@ -1,0 +1,12 @@
+#!/bin/bash
+
+
+if [ $# == 0 ]; then
+    echo "No files as parameter."
+else
+    for file in $@
+        do
+    	echo "$file" >> .gitignore
+    done
+fi
+
