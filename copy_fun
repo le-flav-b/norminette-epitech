@@ -1,13 +1,53 @@
 #!/bin/bash
 
 
-FILE_TO_COPY=$(readlink -f ".")/file-to-copy
+FUN_PATH=~/Documents/scripts/.functions/
+FILE_TO_COPY_PATH=files-to-copy-to-clipboard
 
-for fun in $@
-do
-	cat ~/Documents/scripts/.fonctions/$fun >> $FILE_TO_COPY
-done
+###   SHOW HELP   ###
+if [ $# == 1 ] && [ $1 == '--help' ] || [ $# == 0 ];
+then
+    echo
+    echo "Use this command with filenames from .functions as params to copy their content."
+    echo
+    echo "Use --help to show this message."
+    echo "Use --add alone to go to the .function directory, or with filenames to edit their content."
+    echo
 
-cat $FILE_TO_COPY | xclip -selection -c
 
-rm -f "$FILE_TO_COPY"
+###   TO ADD FILES IN THE LISTE   ###
+
+elif [ $# -ge 1 ] && [ $1 == '--add' ]; then
+    if [ $# == 1 ]; then # to work, run file with source before
+        echo $FUN_PATH
+        cd $FUN_PATH
+    else
+        for FUN in ${@:2}
+        do
+            vim $FUN_PATH$FUN
+        done
+    fi
+
+
+###   TO COPY FILES   ###
+
+else
+
+    rm -f "$FILE_TO_COPY_PATH"
+
+    for FUN in $@
+    do
+        if [ $FUN == '--add' ]; then
+            continue
+        elif [ -f "$FUN_PATH$FUN" ]; then
+            cat $FUN_PATH$FUN >> $FILE_TO_COPY_PATH
+        else
+            echo "$FUN :  file not found"
+        fi
+    done
+
+    xclip -sel clip $FILE_TO_COPY_PATH
+
+    rm -f "$FILE_TO_COPY_PATH"
+fi
+
