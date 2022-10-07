@@ -5,3 +5,4 @@ int	strlen(char *str)
 		while (str[i++]);
 		return (i);
 }
+

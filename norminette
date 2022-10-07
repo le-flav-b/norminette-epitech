@@ -113,11 +113,15 @@ function real_time() {
 	while :
 	do
 		show_reports > "$EXPORT_RT_FILE"
-		clear && cat "$EXPORT_RT_FILE"
-		rm -f "$EXPORT_RT_FILE"
+        clear && cat "$EXPORT_RT_FILE"
+        if [ `cat $EXPORT_RT_FILE | wc -c` == 88 ];
+        then
+            echo "Good Job !"
+            break
+        fi
+        rm -f "$EXPORT_RT_FILE"
 	done
 }
-
 
 
 ##########################

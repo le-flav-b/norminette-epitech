@@ -8,10 +8,10 @@ FILE_TO_COPY_PATH=files-to-copy-to-clipboard
 if [ $# == 1 ] && [ $1 == '--help' ] || [ $# == 0 ];
 then
     echo
-    echo "Use this command with filenames from .functions as params to copy their content."
+    echo "Use this command with filenames from $FUN_PATH as params to copy their content."
     echo
     echo "Use --help to show this message."
-    echo "Use --add alone to go to the .function directory, or with filenames to edit their content."
+    echo "Use --add alone to go to $FUN_PATH, or with filenames to edit their content."
     echo
 
 
