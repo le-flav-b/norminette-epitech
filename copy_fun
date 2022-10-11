@@ -45,8 +45,10 @@ else
             echo "$FUN :  file not found"
         fi
     done
-
-    xclip -sel clip $FILE_TO_COPY_PATH
+    
+    if [ -f $FILE_TO_COPY_PATH ]; then
+        xclip -sel clip $FILE_TO_COPY_PATH
+    fi
 
     rm -f "$FILE_TO_COPY_PATH"
 fi

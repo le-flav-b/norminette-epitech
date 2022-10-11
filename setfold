@@ -1,0 +1,25 @@
+#!/bin/bash
+
+
+echo .vscode >> .gitignore
+echo >> .gitignore
+echo main.c >> .gitignore
+echo my_putchar.c >> .gitignore
+echo "test.out*" >> .gitignore
+echo a.out >> .gitignore
+echo real-time-norminette-report >> .gitignore
+
+echo "/*" >> main.c
+echo "** EPITECH PROJET, 2022" >> main.c
+echo "** main.c" >> main.c
+echo "** File description:" >> main.c
+echo "** test some functions" >> main.c
+echo "*/" >> main.c
+echo >> main.c
+echo "int main(int argc, char **argv)" >> main.c
+echo "{" >> main.c
+echo "  // your code here" >> main.c
+echo "}" >> main.c
+echo >> main.c
+
+cp ~/Documents/source_files/putchar.c putchar.c
