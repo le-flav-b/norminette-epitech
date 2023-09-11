@@ -1,0 +1,67 @@
+#!/bin/bash
+
+
+function show_help() {
+
+	echo
+	echo -e "There is a doped norminette made by \033[1;94mflboulea\033[0m."
+	echo
+	echo "Use --help or -h  to show this message."
+	echo "Use --open or -o  to open the norm pdf."
+	echo "Use --real-time or -rt  to get a window that while automaticly update itself until the norm is respected (ctrl + c to escape)."
+	echo
+}
+
+
+function show_error() {
+
+	echo -e "nicer_norminette: incorrect use of this command. See '\033[1;37mnicer_norminette --help\033[0m'."
+}
+
+
+function pretty_norm() {
+
+	PN=$(norminette -R CheckForbiddenSourceHeader | grep -v OK! | sed "/Error\!/ s/./\n&/" | sed "s/$/XXX/")
+	if [ "$PN" ]
+	then
+		echo $PN | sed "s/XXX /\n/g" | sed "s/XXX/\n/g"
+	else
+		echo "Everything Good !"
+	fi
+}
+
+
+function real_time() {
+
+	PN=$(norminette -R CheckForbiddenSourceHeader | grep -v OK! | sed "/Error\!/ s/./\n&/" | sed "s/$/XXX/")
+	while [ "$PN" ]
+	do
+		PN=$(norminette -R CheckForbiddenSourceHeader | grep -v OK! | sed "/Error\!/ s/./\n&/" | sed "s/$/XXX/")
+		clear && echo $PN | sed "s/XXX /\n/g" | sed "s/XXX/\n/g"
+	done
+	echo "Good Job !"
+}
+
+
+
+##########################
+#######    MAIN    #######
+##########################
+
+
+if [ $# == 0 ]; then
+	pretty_norm
+elif [ $# == 1 ];
+then
+	if [ $1 == "--open" ] || [ $1 == "-o" ]; then
+		xdg-open "https://cdn.intra.42.fr/pdf/pdf/96987/en.norm.pdf"
+	elif [ $1 == "--real-time" ] || [ $1 == "-rt" ]; then
+		real_time
+	elif [ $1 == "--help" ] || [ $1 == "-h" ]; then
+		show_help
+	else
+		show_error
+	fi
+else
+	show_error
+fi
