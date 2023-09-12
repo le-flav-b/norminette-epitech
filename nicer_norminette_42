@@ -22,7 +22,7 @@ function show_error() {
 
 function pretty_norm() {
 
-	PN=$(norminette -R CheckForbiddenSourceHeader | grep -v OK! | sed "/Error\!/ s/./\n&/" | sed "s/$/XXX/" | sed "s/^.*Error\!/\\\033[1;97m&\\\033[0m/g" | sed "s/ Error\!//g" | sed "s/^[^(]*(/(/" | sed "s/, col.*)./)/g")
+	PN=$(norminette -R CheckForbiddenSourceHeader | grep -v OK! | sed "/Error\!/ s/./\n&/" | sed "s/$/XXX/" | sed "s/^.*Error\!/\\\033[1;97m&\\\033[0m/g" | sed "s/ Error\!//g" | sed "s/^[^(]*(/(/" | sed "s/, col[^)]*)/)/g")
 	if [ "$PN" ]
 	then
 		echo -e $PN | sed "s/XXX /\n/g" | sed "s/XXX/\n/g"
@@ -34,10 +34,10 @@ function pretty_norm() {
 
 function real_time() {
 
-	PN=$(norminette -R CheckForbiddenSourceHeader | grep -v OK! | sed "/Error\!/ s/./\n&/" | sed "s/$/XXX/" | sed "s/^.*Error\!/\\\033[1;97m&\\\033[0m/g" | sed "s/ Error\!//g" | sed "s/^[^(]*(/(/" | sed "s/, col.*)./)/g")
+	PN=$(norminette -R CheckForbiddenSourceHeader | grep -v OK! | sed "/Error\!/ s/./\n&/" | sed "s/$/XXX/" | sed "s/^.*Error\!/\\\033[1;97m&\\\033[0m/g" | sed "s/ Error\!//g" | sed "s/^[^(]*(/(/" | sed "s/, col[^)]*)/)/g")
 	while [ "$PN" ]
 	do
-		PN=$(norminette -R CheckForbiddenSourceHeader | grep -v OK! | sed "/Error\!/ s/./\n&/" | sed "s/$/XXX/" | sed "s/^.*Error\!/\\\033[1;97m&\\\033[0m/g" | sed "s/ Error\!//g" | sed "s/^[^(]*(/(/" | sed "s/, col.*)./)/g")
+		PN=$(norminette -R CheckForbiddenSourceHeader | grep -v OK! | sed "/Error\!/ s/./\n&/" | sed "s/$/XXX/" | sed "s/^.*Error\!/\\\033[1;97m&\\\033[0m/g" | sed "s/ Error\!//g" | sed "s/^[^(]*(/(/" | sed "s/, col[^)]*)/)/g")
 		clear && echo -e $PN | sed "s/XXX /\n/g" | sed "s/XXX/\n/g"
 		sleep 1
 	done
