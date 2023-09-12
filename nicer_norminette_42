@@ -6,6 +6,8 @@ function show_help() {
 	echo
 	echo -e "There is a more readable norminette made by \033[1;94mflboulea\033[0m."
 	echo
+	echo -e "The command is '\033[1;97mnicer_norminette\033[0m' :"
+	echo "The command is 'nicer_norminette',"
 	echo "Use --help or -h  to show this message."
 	echo "Use --open or -o  to open the norm pdf."
 	echo "Use --real-time or -rt  to get a window that while automaticly update itself until the norm is respected (ctrl + c to escape)."
