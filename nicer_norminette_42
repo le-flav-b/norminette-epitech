@@ -9,7 +9,7 @@ function show_help() {
 	echo -e "The command is '\033[1;97mnicer_norminette\033[0m' :"
 	echo "Use --help or -h  to show this message."
 	echo "Use --open or -o  to open the norm pdf."
-	echo "Use --real-time or -rt  to get a window that while automaticly update itself until the norm is respected (ctrl + c to escape)."
+	echo "Use --real-time or -rt  and split your window (ctrl + c to escape)."
 	echo
 }
 
@@ -22,10 +22,10 @@ function show_error() {
 
 function pretty_norm() {
 
-	PN=$(norminette -R CheckForbiddenSourceHeader | grep -v OK! | sed "/Error\!/ s/./\n&/" | sed "s/$/XXX/")
+	PN=$(norminette -R CheckForbiddenSourceHeader | grep -v OK! | sed "/Error\!/ s/./\n&/" | sed "s/$/XXX/" | sed "s/^.*Error\!/\\\033[1;97m&\\\033[0m/g" | sed "s/ Error\!//g" | sed "s/^[^(]*(/(/" | sed "s/, col.*)./)/g")
 	if [ "$PN" ]
 	then
-		echo $PN | sed "s/XXX /\n/g" | sed "s/XXX/\n/g"
+		echo -e $PN | sed "s/XXX /\n/g" | sed "s/XXX/\n/g"
 	else
 		echo "Everything Good !"
 	fi
@@ -34,11 +34,12 @@ function pretty_norm() {
 
 function real_time() {
 
-	PN=$(norminette -R CheckForbiddenSourceHeader | grep -v OK! | sed "/Error\!/ s/./\n&/" | sed "s/$/XXX/")
+	PN=$(norminette -R CheckForbiddenSourceHeader | grep -v OK! | sed "/Error\!/ s/./\n&/" | sed "s/$/XXX/" | sed "s/^.*Error\!/\\\033[1;97m&\\\033[0m/g" | sed "s/ Error\!//g" | sed "s/^[^(]*(/(/" | sed "s/, col.*)./)/g")
 	while [ "$PN" ]
 	do
-		PN=$(norminette -R CheckForbiddenSourceHeader | grep -v OK! | sed "/Error\!/ s/./\n&/" | sed "s/$/XXX/")
-		clear && echo $PN | sed "s/XXX /\n/g" | sed "s/XXX/\n/g"
+		PN=$(norminette -R CheckForbiddenSourceHeader | grep -v OK! | sed "/Error\!/ s/./\n&/" | sed "s/$/XXX/" | sed "s/^.*Error\!/\\\033[1;97m&\\\033[0m/g" | sed "s/ Error\!//g" | sed "s/^[^(]*(/(/" | sed "s/, col.*)./)/g")
+		clear && echo -e $PN | sed "s/XXX /\n/g" | sed "s/XXX/\n/g"
+		sleep 1
 	done
 	echo "Good Job !"
 }
