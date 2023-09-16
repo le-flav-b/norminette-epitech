@@ -1,0 +1,2 @@
+#!/bin/bash
+git log | grep Author | cut -d " " -f2 | sort | uniq -c

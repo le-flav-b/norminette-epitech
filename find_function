@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ $# == 0 ]; then
+	echo "No function name as parameter."
+else
+	for fun in $@
+	do
+		find ~/Documents -type f -name "*$fun*" -not -path "*/.*" | sed "s/^.*flboulea/~/g"
+	done
+fi
