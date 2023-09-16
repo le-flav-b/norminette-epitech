@@ -1,19 +1,26 @@
 #!/bin/bash
 
-# Demandez à l'utilisateur combien de dossiers il souhaite créer
-read -p "Combien de dossiers souhaitez-vous créer ? " num_folders
 
-# Vérifiez si le nombre est valide (supérieur ou égal à 1)
-if ((num_folders < 1)); then
-	echo "Nombre invalide. Veuillez spécifier au moins un dossier."
-	exit 1
+if [ $# != 1 ] || [[ $1 != +([0-9]) ]] || [ $1 == 0 ]; then
+	echo "Need one argument : the number of exercices."
+else
+	for ((i = 0; i < $1; i++)); do
+		mkdir "ex$((i / 10))$((i % 10))"
+	done
 fi
 
-# Créez les dossiers en utilisant une boucle
-for ((i = 0; i <= num_folders; i++)); do
-	folder_name="ex0$i"
-	mkdir "$folder_name"
-	echo "Dossier $folder_name créé."
-done
+# Demandez à l'utilisateur combien de dossiers il souhaite créer
+#read -p "Combien de dossiers souhaitez-vous créer ? " num_folders
 
-echo "Opération terminée."
+# Vérifiez si le nombre est valide (supérieur ou égal à 1)
+#if ((num_folders < 1)); then
+#	echo "Nombre invalide. Veuillez spécifier au moins un dossier."
+#	exit 1
+#fi
+
+# Créez les dossiers en utilisant une boucle
+#for ((i = 0; i <= num_folders; i++)); do
+#	folder_name="ex0$i"
+#	mkdir "$folder_name"
+#	echo "Dossier $folder_name créé."
+#done
