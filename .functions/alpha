@@ -1,0 +1,8 @@
+int	ft_str_is_alpha(char *str)
+{
+	if (!*str)
+		return (1);
+	if (('A' <= *str && *str <= 'Z') || ('a' <= *str && *str <= 'z'))
+		return (ft_str_is_alpha(str + 1));
+	return (0);
+}

@@ -1,0 +1,9 @@
+int	ft_str_is_alphanum(char *str)
+{
+	if (!*str)
+		return (1);
+	if (('A' <= *str && *str <= 'Z') || ('a' <= *str && *str <= 'z') \
+	('0' <= *str && *str <= '9'))
+		return (ft_str_is_alphanum(str + 1));
+	return (0);
+}
