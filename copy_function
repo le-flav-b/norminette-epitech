@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ $# != 1 ]; then
+	echo "Need one function name as parameter."
+else
+	FILE=~/Documents/scripts/.functions/$1
+	if [ -f "$FILE" ]; then
+		cat "$FILE" | xclip -selection clipboard
+	else
+		echo "Function file not found."
+	fi
+fi

@@ -50,9 +50,11 @@ alias ifs="xdg-open https://www.ffcorientation.fr/media/cache/b8/c5/b8c5965b1b59
 ## my scripts
 export PATH=$PATH:~/Documents/scripts
 alias giti="add_to_gitignore"
-alias gitpa="push_all && gits"
+alias gitpa="push_all"
 alias gitcc="gitcountcommit"
 alias mkex="create_dir"
 alias findf="find_function"
-alias nn="nicer_norminette"
+alias copyf="copy_function"
+alias nn="nicer_norminette_42"
 alias rtn="nn -rt"
+alias min="echo -n "-2147483648" | xclip -selection clipboard"

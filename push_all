@@ -19,4 +19,4 @@ else
 fi
 git commit -m "$MESSAGE"
 git push
-
+git status
