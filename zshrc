@@ -4,6 +4,7 @@ alias v="vim"
 alias c="cat"
 alias b="bat"
 alias n="norminette"
+alias mk="mkdir"
 
 ## move to location
 alias cdd="cd ~/Documents"
@@ -31,6 +32,7 @@ alias todoe="v ~/TODO"
 
 ## compilation
 alias ccc="cc -Wall -Wextra -Werror -g3"
+alias cccc="ccc -c"
 alias a="./a.out"
 alias cca="ccc *.c && a"
 
@@ -39,6 +41,7 @@ alias gita="git add *"
 alias gitc="git commit -m"
 alias gitp="git push"
 alias gits="git status"
+alias gcl="git clone"
 
 ## internet
 alias intra="xdg-open https://intra.42.fr"
@@ -57,4 +60,6 @@ alias findf="find_function"
 alias copyf="copy_function"
 alias nn="nicer_norminette_42"
 alias rtn="nn -rt"
+
+## copy to clipboard
 alias min="echo -n "-2147483648" | xclip -selection clipboard"
